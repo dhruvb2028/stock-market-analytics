@@ -1,19 +1,12 @@
 services:
   - type: web
     name: stock-market-analytics
-    env: static
+    env: node
     buildCommand: npm install && npm run build
-    staticPublishPath: ./dist
-    pullRequestPreviewsEnabled: true
+    startCommand: npm install -g serve && serve -s dist -p $PORT
     autoDeploy: true
-    headers:
-      - path: /*
-        name: Cache-Control
-        value: public, max-age=0, must-revalidate
     envVars:
       - key: VITE_GOOGLE_API_KEY
         sync: false
-    routes:
-      - type: rewrite
-        source: /*
-        destination: /index.html
+      - key: NODE_VERSION
+        value: 18.17.0

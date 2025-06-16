@@ -1,7 +1,7 @@
 import { GoogleGenerativeAI } from '@google/generative-ai';
 import { Company, TimeFrame } from '../types';
 
-const API_KEY = 'AIzaSyDMySFteTwbRBcbjt5pl46BH5g5AGLBMF8';
+const API_KEY = import.meta.env.VITE_GOOGLE_API_KEY || 'AIzaSyDMySFteTwbRBcbjt5pl46BH5g5AGLBMF8';
 
 export interface GainersLosersData {
   gainers: Company[];

@@ -7,6 +7,7 @@ import IndexSelector from './components/IndexSelector';
 import TimeFrameSelector from './components/TimeFrameSelector';
 import CompanyTable from './components/CompanyTable';
 import GainersLosersTable from './components/GainersLosersTable';
+import GainersLosersExport from './components/GainersLosersExport';
 import ExcelExport from './components/ExcelExport';
 import InfoCard from './components/InfoCard';
 
@@ -162,9 +163,18 @@ function App() {
                 <h2 className="text-xl font-semibold text-gray-800">
                   Market Movers - {selectedIndex.name} ({timeFrame.charAt(0).toUpperCase() + timeFrame.slice(1)})
                 </h2>
-                <p className="text-sm text-gray-500">
-                  {gainersLosersData?.lastUpdated && `Last updated: ${gainersLosersData.lastUpdated}`}
-                </p>
+                <div className="flex items-center space-x-4">
+                  <p className="text-sm text-gray-500">
+                    {gainersLosersData?.lastUpdated && `Last updated: ${gainersLosersData.lastUpdated}`}
+                  </p>
+                  <GainersLosersExport
+                    gainers={gainersLosersData?.gainers || []}
+                    losers={gainersLosersData?.losers || []}
+                    indexName={selectedIndex.name}
+                    timeFrame={timeFrame}
+                    disabled={isLoadingGainersLosers || !gainersLosersData}
+                  />
+                </div>
               </div>
               
               {gainersLosersError ? (

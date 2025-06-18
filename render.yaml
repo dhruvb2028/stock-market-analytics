@@ -1,12 +1,16 @@
 services:
   - type: web
     name: stock-market-analytics
-    env: node
+    env: static
     buildCommand: npm install && npm run build
-    startCommand: npm install -g serve && serve -s dist -p $PORT
-    autoDeploy: true
+    staticPublishPath: ./dist
+    headers:
+      - path: /*
+        name: Cache-Control
+        value: no-cache
     envVars:
       - key: VITE_GOOGLE_API_KEY
+        # Add your secret from Render.com dashboard
         sync: false
-      - key: NODE_VERSION
-        value: 18.17.0
+    pullRequestPreviewsEnabled: true
+    autoDeploy: true
